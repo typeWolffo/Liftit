@@ -1,0 +1,7 @@
+@import "@fontsource/comfortaa";
+@import "@fontsource/montserrat";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
