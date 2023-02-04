@@ -1,8 +1,9 @@
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
-import type { ComponentProps } from "react";
+import Link from "next/link";
+import type { ComponentProps, PropsWithChildren } from "react";
 
-type ButtonProps = ComponentProps<"button">;
+type ButtonProps = ComponentProps<"button"> & ComponentProps<"a">;
 
 const buttonStyles = cva("px-5 py-2 rounded-md", {
   variants: {
@@ -25,6 +26,27 @@ const buttonStyles = cva("px-5 py-2 rounded-md", {
 
 export interface Props extends ButtonProps, VariantProps<typeof buttonStyles> {}
 
-export function Button({ variant, fullWidth, ...props }: Props) {
-  return <button className={buttonStyles({ variant, fullWidth })} {...props} />;
+export function Button({
+  variant,
+  fullWidth,
+  className,
+  href,
+  children,
+  ...props
+}: PropsWithChildren<Props>) {
+  const isLink = typeof href !== "undefined";
+  return isLink ? (
+    <Link href={href}>
+      <button className={buttonStyles({ variant, fullWidth, className })}>
+        {children}
+      </button>
+    </Link>
+  ) : (
+    <button
+      className={buttonStyles({ variant, fullWidth, className })}
+      {...props}
+    >
+      {children}
+    </button>
+  );
 }

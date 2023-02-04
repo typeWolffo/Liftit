@@ -7,7 +7,7 @@ import { prisma } from "../../../server/db";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
-  debug: true,
+  // debug: true,
   callbacks: {
     session({ session, user }) {
       if (session.user) {
@@ -15,9 +15,6 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    // redirect({ baseUrl }) {
-    //   return `${baseUrl}/dashboard`;
-    // },
   },
   adapter: PrismaAdapter(prisma),
   providers: [
