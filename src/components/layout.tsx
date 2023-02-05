@@ -6,6 +6,7 @@ import Head from "next/head";
 import { Navbar } from "./Navbar";
 import { motion } from "framer-motion";
 import Container from "../ui/Container";
+import { ToastContainer } from "react-toastify";
 
 function Layout({ children }: { children: ReactNode }) {
   const { status } = useSession();

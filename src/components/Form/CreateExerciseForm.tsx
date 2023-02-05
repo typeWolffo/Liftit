@@ -6,18 +6,42 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { exerciseSchema } from "../../schema/exercise.schema";
 import { Button } from "../../ui/Button";
 import type { z } from "zod";
+import { api } from "../../utils/api";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 type ExerciseSchemaType = z.infer<typeof exerciseSchema>;
 function CreateExerciseForm() {
+  const { mutate, status, data } = api.exercise.create.useMutation();
+
   const { handleSubmit, register } = useForm<ExerciseSchemaType>({
     resolver: zodResolver(exerciseSchema),
   });
+
+  useEffect(() => {
+    console.log(data);
+    if (status === "success") {
+      toast.success(`Created ${data.name}!`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  }, [data, status]);
 
   const handleFormSubmit: SubmitHandler<ExerciseSchemaType> = ({
     name,
     videoUrl,
   }) => {
-    console.log({ name, videoUrl });
+    mutate({
+      name,
+      videoUrl,
+    });
   };
 
   return (

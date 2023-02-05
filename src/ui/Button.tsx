@@ -8,7 +8,7 @@ type ButtonProps = ComponentProps<"button"> & ComponentProps<"a">;
 const buttonStyles = cva("px-5 py-2 rounded-md", {
   variants: {
     variant: {
-      primary: "bg-primary text-dark-600 ",
+      primary: "bg-primary text-dark-600",
       "primary-outlined":
         "bg-transparent border-2 border-primary text-primary ",
       danger: "bg-red-500 text-white",
