@@ -1,7 +1,6 @@
 import { api } from "../utils/api";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Input from "../ui/Input";
 import { Button } from "../ui/Button";
 
 function Dashboard() {

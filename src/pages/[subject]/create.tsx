@@ -4,6 +4,7 @@ import {
   CreateSetForm,
   CreateTrainingPlanForm,
 } from "../../components/Form";
+import Loader from "../../components/Loader/Loader";
 
 function Create() {
   const { query } = useRouter();
@@ -13,11 +14,12 @@ function Create() {
     exercise: CreateExerciseForm,
     set: CreateSetForm,
     plan: CreateTrainingPlanForm,
+    loader: Loader,
   };
 
   if (typeof subject === "string") {
     const Component = formMap[subject];
-    // TODO:👇make it work without errors
+    // TODO:👇 make it work without errors
     // @ts-ignore
     return <Component />;
   }
