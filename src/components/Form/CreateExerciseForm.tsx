@@ -1,14 +1,13 @@
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import Input from "../../ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { exerciseSchema } from "../../schema/exercise.schema";
-import { Button } from "../../ui/Button";
 import type { z } from "zod";
 import { api } from "../../utils/api";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { Button, Input } from "@nextui-org/react";
 
 type ExerciseSchemaType = z.infer<typeof exerciseSchema>;
 function CreateExerciseForm() {
@@ -48,7 +47,7 @@ function CreateExerciseForm() {
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Input label="Exercise name" {...register("name")} />
       <Input label="Video url" {...register("videoUrl")} />
-      <Button variant="primary">Create</Button>
+      <Button type="submit">Create</Button>
     </form>
   );
 }

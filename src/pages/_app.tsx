@@ -11,6 +11,8 @@ import { Router } from "next/router";
 import Loader from "../components/Loader/Loader";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { NextUIProvider } from "@nextui-org/react";
+import { theme } from "../ui/theme";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -37,7 +39,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return (
     <SessionProvider session={session}>
-      <Layout>{isLoading ? <Loader /> : <Component {...pageProps} />}</Layout>
+      <NextUIProvider theme={theme}>
+        <Layout>{isLoading ? <Loader /> : <Component {...pageProps} />}</Layout>
+      </NextUIProvider>
       <ToastContainer />
     </SessionProvider>
   );

@@ -4,7 +4,6 @@ import {
   CreateSetForm,
   CreateTrainingPlanForm,
 } from "../../components/Form";
-import Loader from "../../components/Loader/Loader";
 
 function Create() {
   const { query } = useRouter();
@@ -14,7 +13,6 @@ function Create() {
     exercise: CreateExerciseForm,
     set: CreateSetForm,
     plan: CreateTrainingPlanForm,
-    loader: Loader,
   };
 
   if (typeof subject === "string") {

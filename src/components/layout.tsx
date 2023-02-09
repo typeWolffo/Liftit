@@ -3,21 +3,21 @@ import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 import Head from "next/head";
-import { Navbar } from "./Navbar";
 import { motion } from "framer-motion";
-import Container from "../ui/Container";
-import { ToastContainer } from "react-toastify";
+import { Container } from "@nextui-org/react";
+import AppNavbar from "./Navbar/Navbar";
 
 function Layout({ children }: { children: ReactNode }) {
   const { status } = useSession();
   const router = useRouter();
 
+  const isAuthenticated = status === "authenticated";
+
   useEffect(() => {
-    if (status === "unauthenticated" && router.pathname !== "/")
-      void router.push("/");
-    if (status === "authenticated" && router.pathname === "/")
+    if (!isAuthenticated && router.pathname !== "/") void router.push("/");
+    if (isAuthenticated && router.pathname === "/")
       void router.push("/dashboard");
-  }, [router, status]);
+  }, [router, isAuthenticated]);
 
   return (
     <>
@@ -45,8 +45,8 @@ function Layout({ children }: { children: ReactNode }) {
         <meta name="msapplication-TileColor" content="#191919" />
         <meta name="theme-color" content="#191919" />
       </Head>
+      {isAuthenticated && <AppNavbar />}
       <Container>
-        <Navbar />
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}

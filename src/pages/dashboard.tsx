@@ -1,7 +1,7 @@
 import { api } from "../utils/api";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { Button } from "../ui/Button";
+import { LinkButton } from "../components/LinkButton";
 
 function Dashboard() {
   const { data: sessionData } = useSession();
@@ -25,15 +25,9 @@ function Dashboard() {
           width={96}
           height={96}
         />
-        <Button variant="primary" href="/set/create">
-          Create Set
-        </Button>
-        <Button variant="primary" href="/exercise/create">
-          Create exercise
-        </Button>
-        <Button variant="primary" href="/plan/create">
-          Create plan
-        </Button>
+        <LinkButton href="/set/create">Create Set</LinkButton>
+        <LinkButton href="/exercise/create">Create exercise</LinkButton>
+        <LinkButton href="/plan/create">Create plan</LinkButton>
       </div>
     </div>
   );
