@@ -1,28 +1,56 @@
-import { useRouter } from "next/router";
-import {
-  CreateExerciseForm,
-  CreateSetForm,
-  CreateTrainingPlanForm,
-} from "../../components/Form";
+import { Container } from "@nextui-org/react";
+import type { GetServerSidePropsContext } from "next";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import Loader from "../../components/Loader/Loader";
 
-function Create() {
-  const { query } = useRouter();
-  const subject = query.subject;
+type Props = {
+  params: Record<string, string>;
+};
 
-  const formMap: Record<string, React.ElementType> = {
-    exercise: CreateExerciseForm,
-    set: CreateSetForm,
-    plan: CreateTrainingPlanForm,
+function Create({ params }: Props) {
+  const { subject } = params;
+
+  const DynamicCreateExerciseForm = dynamic(() =>
+    import("../../components/Form").then((module) => module.CreateExerciseForm)
+  );
+
+  const DynamicCreateSetForm = dynamic(() =>
+    import("../../components/Form").then((module) => module.CreateSetForm)
+  );
+
+  const DynamicCreateTrainingPlanForm = dynamic(() =>
+    import("../../components/Form").then(
+      (module) => module.CreateTrainingPlanForm
+    )
+  );
+
+  const formMap: Record<string, React.ComponentType> = {
+    exercise: DynamicCreateExerciseForm,
+    set: DynamicCreateSetForm,
+    plan: DynamicCreateTrainingPlanForm,
   };
 
-  if (typeof subject === "string") {
-    const Component = formMap[subject];
-    // TODO:👇 make it work without errors
-    // @ts-ignore
-    return <Component />;
+  if (typeof subject !== "undefined") {
+    const Component = formMap[subject] as React.ComponentType;
+
+    return (
+      <Suspense fallback={<Loader />}>
+        <Container md className="flex">
+          <Component />
+        </Container>
+      </Suspense>
+    );
   }
 
   return null;
+}
+
+export function getServerSideProps(context: GetServerSidePropsContext) {
+  const { params } = context;
+  return {
+    props: { params },
+  };
 }
 
 export default Create;

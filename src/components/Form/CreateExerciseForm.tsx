@@ -13,9 +13,13 @@ type ExerciseSchemaType = z.infer<typeof exerciseSchema>;
 function CreateExerciseForm() {
   const { mutate, status, data } = api.exercise.create.useMutation();
 
-  const { handleSubmit, register } = useForm<ExerciseSchemaType>({
-    resolver: zodResolver(exerciseSchema),
-  });
+  const { handleSubmit, register, getValues, formState } =
+    useForm<ExerciseSchemaType>({
+      resolver: zodResolver(exerciseSchema),
+    });
+
+  const { name, videoUrl } = getValues();
+  const { isDirty } = formState;
 
   useEffect(() => {
     console.log(data);
@@ -47,7 +51,9 @@ function CreateExerciseForm() {
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Input label="Exercise name" {...register("name")} />
       <Input label="Video url" {...register("videoUrl")} />
-      <Button type="submit">Create</Button>
+      <Button color="primary" type="submit">
+        Create
+      </Button>
     </form>
   );
 }

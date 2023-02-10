@@ -1,7 +1,7 @@
 import { api } from "../utils/api";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { LinkButton } from "../components/LinkButton";
+import { LinkButton } from "../components/elements/LinkButton";
 
 function Dashboard() {
   const { data: sessionData } = useSession();
