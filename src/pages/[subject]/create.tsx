@@ -36,9 +36,7 @@ function Create({ params }: Props) {
 
     return (
       <Suspense fallback={<Loader />}>
-        <Container md className="flex">
-          <Component />
-        </Container>
+        <Component />
       </Suspense>
     );
   }
