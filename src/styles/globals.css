@@ -5,3 +5,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* trick that removes white background from input while filled from autocomplete/autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}

@@ -18,6 +18,10 @@ module.exports = {
       secondary: ["Montserrat", "sans-serif"]
     },
     extend: {
+      animation: {
+        'ping-delay-1': 'ping 1s .15s cubic-bezier(0, 0, 0.2, 1) infinite;',
+        'ping-delay-2': 'ping 1s .2s cubic-bezier(0, 0, 0.2, 1) infinite;',
+      },
       colors: {
         primary: "#76B300",
         background: "#191919",

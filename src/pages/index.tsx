@@ -1,27 +1,30 @@
+import { Text, Container, Spacer, Button } from "@nextui-org/react";
 import { type NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
-
-import { Button } from "../ui/Button";
+import { signIn } from "next-auth/react";
 
 const Home: NextPage = () => {
-  const { data: sessionData } = useSession();
-
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-background to-dark-700">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="font-primary text-9xl font-bold text-primary">
-            LiftIT
-          </h1>
-          <Button
-            variant="primary-outlined"
-            onClick={sessionData ? () => void signOut() : () => void signIn()}
-          >
-            {sessionData ? "Sign out" : "Let's go"}
-          </Button>
-        </div>
-      </main>
+      <Container
+        fluid
+        className="flex h-screen flex-col items-center justify-center"
+      >
+        <Text
+          h1
+          size={90}
+          css={{
+            textGradient: "45deg, $primaryLight 30%, $info-light",
+            fontFamily: "$primary",
+          }}
+          weight="black"
+        >
+          LiftIT
+        </Text>
+        <Spacer y={1} />
+        <Button color="primary" shadow ghost onClick={() => signIn()}>
+          Log In
+        </Button>
+      </Container>
     </>
   );
 };
